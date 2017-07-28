@@ -32,6 +32,7 @@
 	cursor: pointer;
 }
 .navSelect_ul li span{
+	display: none;
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -40,7 +41,6 @@
 	width:20px;
 	height:20px;
 	font-size:14px;
-	padding: 5px;
 	color:white;
 }
 .navSelect_ul li.cur{
@@ -79,9 +79,7 @@
 	background-color: rebeccapurple;
 }
 .select_content p{
-	width:100%;
-	text-align: center;
-	line-height:400px;
+	
 }
 .select_add{
 	margin-top:10px;

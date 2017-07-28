@@ -15,25 +15,18 @@
 	<div class="selectTab">
 		<div class="navSelect">
 			<ul class="navSelect_ul">
-				<li class="cur">tab1<span>X</span></li>
-				<li>tab2<span>X</span></li>
-				<li>tab3<span>X</span></li>
-				<li>tab4<span>X</span></li>
-				<li>tab5<span>X</span></li>
-				<li>我想静静<span>X</span></li>
-				<li>tab7<span>X</span></li>
-				<li>含蓄<span>X</span></li>
-				<li>tab6<span>X</span></li>
-				<li>静静<span>X</span></li>
-				<li>tab5<span>X</span></li>
-				<li>嗨<span>X</span></li>
-				<li>tab7<span>X</span></li>
+				<li data-text="文章1" class="cur">tab1<span>X</span></li>
+				<li data-text="文章2" >tab2<span>X</span></li>
+				<li data-text="文章3" >tab3<span>X</span></li>
+				<li data-text="文章4" >tab4<span>X</span></li>
+				<li data-text="文章5" >tab5<span>X</span></li>
+				<li data-text="文章我想静静" >我想静静<span>X</span></li>
 			</ul>
 			<span class="left_but">left</span>
 			<sapn class="right_but">right</sapn>
 		</div>
 		<div class="select_content">
-			<p>tab1</p>
+			<p></p>
 		</div>
 		<div class="select_add"><span>添加</span></div>
 	</div>
@@ -45,7 +38,7 @@
 			</div>
 			<div class="add_box_tab">
 				<span>内容</span>
-				<textarea></textarea>
+				<textarea id="textarea"></textarea>
 			</div>
 			<div class="add_box_tab">
 				<div class="add_toast_but">
@@ -60,6 +53,7 @@
 	</div>
 <script>
 $(function(){
+	selectThisText();
 	getLilenght();//获取导航栏的子集数自动赋予宽度
 	$('.but_cancel,.cancel').click(function(){
 		$('.add_box').fadeOut();
@@ -69,11 +63,14 @@ $(function(){
 		// $.loadingShow('./images/loadingH5.gif');
 	})
 	$('#confirm').click(function(){
+		
 		var title = $('#input_tltle').val();
-
-		var lis = '<li>'+title+'<span>X</span></li>';
+		var textarea = $('#textarea').val();
+		
+		var lis = '<li data-text="'+textarea+'">'+title+'<span>X</span></li>';
 		$('.navSelect_ul').append(lis)
 		getLilenght();
+		$('.add_box').fadeOut();
 		console.log(title)
 	})
 	// $('body').on('click','div#loading',function(){
@@ -81,20 +78,33 @@ $(function(){
 	// 	$('body').css({"height":"auto","overflow":"auto"});
 	// })
 	$('.navSelect_ul').on('click','li',function(){
-		$('.select_content p').text($(this).text())
+		// $('.select_content p').text($(this).text())
 		$(this).addClass('cur').siblings().removeClass('cur');
+		selectThisText();
 		// $('.add_box').fadeOut();
 	})
+
+	$('.navSelect_ul').on('mouseenter','li',function(){
+		$(this).children('span').stop().fadeIn();
+	})
+	$('.navSelect_ul').on('mouseleave','li',function(){
+		$(this).children('span').stop().fadeOut();
+	})
+
 	$('.navSelect_ul').on('click','li>span',function(){
-		getLilenght();
-		
-		if($(this).parent('li').hasClass('cur') && $(this).parent('li').next()){
-			$(this).parent('li').next().addClass('cur');
-		}else if($(this).parent('li').hasClass('cur') && $(this).parent('li').prev()){
-			$(this).parent('li').prev().addClass('cur');
-		}
-		$(this).parent('li').remove();
-				
+		$(this).parent('li').fadeOut(500,function(){
+			let liLenght = $('.navSelect_ul').children().length;
+			if(liLenght<=6){
+				$('.navSelect_ul').animate({left:0},200);
+			}
+			if($(this).hasClass('cur')){
+				$(this).removeClass('cur').next().addClass('cur');
+				selectThisText();
+			}
+			$(this).remove();
+			getLilenght();
+		});
+		return false;
 	})
 	
 	var left = 0;//默认left值等于0
@@ -123,6 +133,14 @@ $(function(){
 		$('.navSelect_ul').css({width:(100+10)*liLenght+'px'});
 		console.log(liLenght);
 		
+	}
+	function selectThisText(){
+		$(".navSelect_ul li").each(function(index,e){
+			if($(this).hasClass('cur')){
+				$('.select_content p').text($(this).attr('data-text'))
+				// console.log()
+			}	
+		});
 	}
 })
 
