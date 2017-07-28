@@ -24,10 +24,14 @@
 <h1>什么也没有</h1>
 <script>
 $(function(){
-    setInterval(function(){
+    var tmre = setInterval(function(){
         // alert(1)
         $('body').prepend('<h1>小黄 请此番 请此番 请此番！！！</h1>')
     },1000);
+    
+    setTimeout(function(){
+        clearInterval(tmre)
+    },10000);
 })
 </script>
 </body>
