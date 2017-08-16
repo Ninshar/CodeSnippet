@@ -6,8 +6,8 @@
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 	<meta name="format-detection" content="telephone=no"/>
 	<link rel="stylesheet" href="css/apple.css">
+	<link rel="stylesheet" href="css/index.css">
 	<script src="js/jquery.min.js"></script>
-	<!-- <script src="js/loading.min.js"></script> -->
     <script src="js/index.js"></script>
     <style>
     body{
@@ -24,14 +24,7 @@
 <h1>什么也没有</h1>
 <script>
 $(function(){
-    var tmre = setInterval(function(){
-        // alert(1)
-        $('body').prepend('<h1>小黄 请此番 请此番 请此番！！！</h1>')
-    },1000);
-    
-    setTimeout(function(){
-        clearInterval(tmre)
-    },10000);
+    $.hintShow({type:0,hintText:'dsajkdasojfaisjfoejfeiso'})
 })
 </script>
 </body>

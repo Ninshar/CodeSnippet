@@ -1,13 +1,33 @@
 (function($){ 
-    $.fn.extend({  
-        loadingShow: function(image) {  
-			var loadingDiv ='<div id="loading" style="width:100%;height:100%;position: fixed;left: 0;top: 0;z-index:1001;background: rgba(0, 0, 0, 0.5);">'
-                                +'<div style="position: absolute;left: 0;top: 0;right: 0;bottom: 0;width: 100px;height:100px;margin: auto;background:url('+image+') center no-repeat;background-size: cover;"></div>'
+    $.extend({  
+        hintShow: function({type,hintText}) {//sizes设置图片大小，imageUrl设置图片路径  
+            var type = type || 0;
+            var bgColor = '#00CC99';
+            switch(type){
+                case 0:
+                    bgColor='#00CC99';
+                    break;
+                case 1:
+                    bgColor='#CCCC66';
+                    break;
+                case 2:
+                    bgColor='#FF0033';
+                    break;
+            }
+			var loadingDiv ='<div id="hints" class="hintbox" style="background-color:'+bgColor+';">'
+                                +'<span>'+hintText+'</span>'+
                             +'</div>';
             $('body').append(loadingDiv);  
+            $('#hints').animate({top:'10px'},200,function(){
+                setTimeout(function(){
+                   $('#hints').animate({top:'-50px'},200,function(){
+                        $('#hints').remove();
+                    })
+                },3000)
+            })
 		},  
-        loadingHide: function() {  
-            $('#loading').remove();
+        hintHide: function() {  
+            $('#hints').remove();
         }  
     })
 })($);

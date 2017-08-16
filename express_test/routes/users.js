@@ -29,9 +29,11 @@ router.post('/add', function(req, res, next) {
     username:req.body.username,
     email:req.body.email
   });
+  console.log(req)
   newUser.save(function(err, data){
     if(err){return console.log(err)}
-    res.redirect('/users/list');
+    // res.redirect('/users/list')
+    res.json({code:200,msg:'添加成功'})
   })
 
 });
@@ -41,15 +43,7 @@ router.delete('/del', function (req, res) {
   userModel.remove({_id: id}, function (err, data) {
     if(err){ return console.log(err); }
     res.json({code: 200, msg: '删除成功',
-      data:{
-        app1:1111,
-        app2:2222,
-        app3:3333,
-        app4:4444,
-        app5:5555,
-        app6:6666,
-        app7:7777,
-      }
+      data:data
     });
   })
 })
